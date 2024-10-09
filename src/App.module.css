@@ -1,9 +1,0 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-.mainContainer {
-    min-height: 100vh;
-    background-color: #13141A;
-    color: #fff; 
-}

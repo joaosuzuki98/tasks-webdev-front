@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.main-container {
+    min-height: 100vh;
+    padding: 60px 0;
+    background-color: #13141A;
+    color: #fff;
+    display: grid;
+    grid-template-columns: repeat(14, 100px);
+    column-gap: 30px;
+    justify-content: center;
+}
