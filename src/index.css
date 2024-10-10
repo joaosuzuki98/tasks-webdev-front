@@ -3,6 +3,9 @@
 :root {
   --light-black: #373942;
   --secondary-black: #1D1F28;
+  --light-green: rgba(86, 227, 159, .45);
+  --main-green: #56e39f;
+  --dark-green: #28B06E;
 }
 
 * {
@@ -31,4 +34,28 @@ body {
 
 .color-secondary-black {
   color: var(--secondary-black);
+}
+
+.bg-main-green {
+  background-color: var(--main-green);
+}
+
+.color-main-green {
+  color: var(--main-green);
+}
+
+.bg-light-green {
+  background-color: var(--light-green);
+}
+
+.color-light-green {
+  color: var(--light-green);
+}
+
+.bg-dark-green {
+  background-color: var(--dark-green);
+}
+
+.color-dark-green {
+  color: var(--dark-green);
 }
