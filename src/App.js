@@ -1,22 +1,13 @@
 import './App.css';
+import DaysContainer from './components/DaysContainer/DaysContainer';
+import Header from './components/Header/Header'
 
 function App() {
   return (
     <div className="main-container">
-      <div className="bg-slate-300">teste</div>
-      <div className="bg-slate-300">testes</div>
-      <div className="bg-slate-300">testeste</div>
-      <div className="bg-slate-300">testes</div>
-      <div className="bg-slate-300">testestetes</div>
-      <div className="bg-slate-300">testeste</div>
-      <div className="bg-slate-300">testes</div>
-      <div className="bg-slate-300">teste</div>
-      <div className="bg-slate-300">a</div>
-      <div className="bg-slate-300">a</div>
-      <div className="bg-slate-300">a</div>
-      <div className="bg-slate-300">a</div>
-      <div className="bg-slate-300">a</div>
-      <div className="bg-slate-300">a</div>
+      <Header />
+      <DaysContainer />
+
     </div>
   );
 }

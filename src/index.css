@@ -1,5 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Quicksand:wght@300..700&display=swap');
 
+:root {
+  --light-black: #373942;
+  --secondary-black: #1D1F28;
+}
+
 * {
   margin: 0px;
   padding: 0px;
@@ -10,4 +15,20 @@ body {
   font-family: "Quicksand", serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+.bg-light-black {
+  background-color: var(--light-black);
+}
+
+.color-light-black {
+  color: var(--light-black);
+}
+
+.bg-secondary-black {
+  background-color: var(--secondary-black);
+}
+
+.color-secondary-black {
+  color: var(--secondary-black);
 }
