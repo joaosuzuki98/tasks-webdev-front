@@ -1,0 +1,9 @@
+.addButtonWrapper {
+    opacity: 0;
+    transition: opacity 200ms ease;
+    width: 100%;
+}
+
+.addButtonContainer:hover .addButtonWrapper {
+    opacity: 1;
+}
