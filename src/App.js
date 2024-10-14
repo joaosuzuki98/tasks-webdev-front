@@ -4,7 +4,7 @@ import DaysContainer from './components/DaysContainer/DaysContainer'
 import Header from './components/Header/Header'
 import TaskBlock from './components/TaskBlock/TaskBlock'
 import AddButton from './components/AddButton/AddButton'
-import TaskModal from './components//TaskModal/TaskModal'
+import TaskModal from './components/TaskModal/TaskModal'
 
 function App() {
   const weekdays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
