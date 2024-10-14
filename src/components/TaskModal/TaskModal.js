@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import api from '../../services/api'
 
 const TaskModal = ({ day, onClose }) => {
   const [taskName, setTaskName] = useState('')
@@ -8,19 +9,26 @@ const TaskModal = ({ day, onClose }) => {
     setTaskStatus(!taskStatus);
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
 
     const taskData = {
-      tas_name: taskName,
-      tas_day: day,
-      tas_status: taskStatus
+      name: taskName,
+      day: day,
+      status: taskStatus
+    }
+
+    try {
+      await api
+        .post("/tasks", taskData)
+        .then(response => console.log(response))
+    } catch(err) {
+      console.log(err)
     }
 
     setTaskName('')
     setTaskStatus(true)
 
-    console.log(taskData)
     onClose()
   }
 
