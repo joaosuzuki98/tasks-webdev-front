@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import api from '../../services/api'
 
-const TaskModal = ({ day, onClose }) => {
+const TaskModal = ({ day, onClose, onAddTask }) => {
   const [taskName, setTaskName] = useState('')
   const [taskStatus, setTaskStatus] = useState(true)
 
@@ -13,15 +13,16 @@ const TaskModal = ({ day, onClose }) => {
     e.preventDefault()
 
     const taskData = {
-      name: taskName,
-      day: day,
-      status: taskStatus
+      tas_name: taskName,
+      tas_day: day,
+      tas_status: taskStatus
     }
 
     try {
       await api
         .post("/tasks", taskData)
         .then(response => console.log(response))
+        onAddTask(taskData)
     } catch(err) {
       console.log(err)
     }
