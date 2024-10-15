@@ -41,8 +41,6 @@ function App() {
     fetchTasks()
   }, [])
 
-  // TODO: Arrumar o dia, pois ele não está sendo renderizado automaticamente após
-  // ser adicionado
   const addTask = (newTask) => {
     setTasks(prevTasks => ({
       ...prevTasks,
