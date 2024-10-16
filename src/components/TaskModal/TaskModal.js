@@ -5,6 +5,7 @@ import './TaskModal.css'
 const TaskModal = ({ day, onClose, onAddTask, onUpdateTask, existingTask, onDeleteTask }) => {
   const [taskName, setTaskName] = useState(existingTask ? existingTask.tas_name : '')
   const [taskStatus, setTaskStatus] = useState(existingTask ? existingTask.tas_status : true)
+  const [errorMessage, setErrorMessage] = useState('')
 
   useEffect(() => {
     if (existingTask) {
@@ -37,14 +38,19 @@ const TaskModal = ({ day, onClose, onAddTask, onUpdateTask, existingTask, onDele
           .post("/tasks", taskData)
           onAddTask(taskData)
       }
+
+      setErrorMessage('')
+      onClose()
     } catch(err) {
-      console.log(err)
+      if (err.response && err.response.data && err.response.data.error) {
+        setErrorMessage(err.response.data.error)
+      } else {
+        setErrorMessage('An unexpected error occurred.')
+      }
     }
 
     setTaskName('')
     setTaskStatus(true)
-
-    onClose()
   }
 
   const handleDelete = async () => {
@@ -77,6 +83,10 @@ const TaskModal = ({ day, onClose, onAddTask, onUpdateTask, existingTask, onDele
             onChange={(e) => setTaskName(e.target.value)}
             className="bg-[#3c3c3c] border-1 border-[#131419] p-2 rounded mb-4 mt-1"
           />
+
+          {errorMessage && (
+            <p className="text-red-500 mb-4">{errorMessage}</p>
+          )}
           
           <div className='flex w-full justify-between'>
             <label htmlFor="taskStatus">Status</label>
