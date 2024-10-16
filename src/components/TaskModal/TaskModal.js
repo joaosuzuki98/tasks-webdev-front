@@ -1,9 +1,16 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import api from '../../services/api'
 
-const TaskModal = ({ day, onClose, onAddTask }) => {
-  const [taskName, setTaskName] = useState('')
-  const [taskStatus, setTaskStatus] = useState(true)
+const TaskModal = ({ day, onClose, onAddTask, onUpdateTask, existingTask, onDeleteTask }) => {
+  const [taskName, setTaskName] = useState(existingTask ? existingTask.tas_name : '')
+  const [taskStatus, setTaskStatus] = useState(existingTask ? existingTask.tas_status : true)
+
+  useEffect(() => {
+    if (existingTask) {
+      setTaskName(existingTask.tas_name)
+      setTaskStatus(existingTask.tas_status)
+    }
+  }, [existingTask])
 
   const handleSwitchChange = () => {
     setTaskStatus(!taskStatus);
@@ -19,10 +26,16 @@ const TaskModal = ({ day, onClose, onAddTask }) => {
     }
 
     try {
-      await api
-        .post("/tasks", taskData)
-        .then(response => console.log(response))
-        onAddTask(taskData)
+      if (existingTask) {
+        await api
+          .put(`/tasks/${existingTask.tas_name}`, taskData)
+          .then(response => console.log(response))
+          onUpdateTask(existingTask.tas_id, taskData)
+      } else {
+        await api
+          .post("/tasks", taskData)
+          onAddTask(taskData)
+      }
     } catch(err) {
       console.log(err)
     }
@@ -31,6 +44,17 @@ const TaskModal = ({ day, onClose, onAddTask }) => {
     setTaskStatus(true)
 
     onClose()
+  }
+
+  const handleDelete = async () => {
+    try {
+      await api
+        .delete(`/tasks/${existingTask.tas_name}`)
+        onDeleteTask(existingTask)
+        onClose()
+    } catch(err) {
+      console.log(err)
+    }
   }
 
   const handleBackgroundClick = (e) => {
@@ -43,7 +67,7 @@ const TaskModal = ({ day, onClose, onAddTask }) => {
     <div onClick={handleBackgroundClick} className="h-screen w-screen bg-[rgba(0,0,0,0.4)] fixed z-10 top-0">
       <div className="absolute w-[400px] bg-[#272727] top-[50%] left-[50%] transform -translate-x-[50%] -translate-y-[50%] rounded">
         <form className="flex flex-col p-4" onSubmit={handleSubmit}>
-          <h1 className='mb-4 text-xl font-bold'>Add you task</h1>
+          <h1 className='mb-4 text-xl font-bold'>{existingTask ? 'Edit task' : 'Add task'}</h1>
           <label htmlFor="taskName">Task name</label>
           <input
             type="text"
@@ -106,7 +130,16 @@ const TaskModal = ({ day, onClose, onAddTask }) => {
             </div>
           </div>
 
-          <button type="submit" className="mt-4 mb-4 p-2 bg-blue-500 text-white rounded">Create Task</button>
+          <button type="submit" className="mt-4 mb-4 p-2 bg-blue-500 text-white rounded">{existingTask ? 'Update task' : 'Create task'}</button>
+          {existingTask && (
+            <button
+              type='button'
+              onClick={handleDelete}
+              className='mt-4 mb-4 p-2 bg-red-500 text-white rounded'
+            >
+              Delete task
+            </button>
+          )}
         </form>
         <button
           onClick={onClose}
