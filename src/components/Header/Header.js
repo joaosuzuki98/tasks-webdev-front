@@ -1,6 +1,7 @@
 import React from 'react'
+import './Header.css'
 
-function Header() {
+function Header({ showCompleted, toggleShowCompleted }) {
   const d = new Date()
   const month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
 
@@ -12,7 +13,19 @@ function Header() {
                 Tasks
             </h1>
 
-            <h2 className='text-2xl font-bold color-light-black absolute left-1/2 transform -translate-x-1/2'>{currentMonth}</h2>
+            <h2 className='flex text-2xl font-bold color-light-black absolute left-1/2 transform -translate-x-1/2'>
+              {currentMonth}
+              <span className="flex items-center ml-4">
+                <label className="switch">
+                  <input 
+                    type="checkbox" 
+                    checked={showCompleted} 
+                    onChange={toggleShowCompleted}
+                  />
+                  <span className="slider round"></span>
+                </label>
+              </span>
+            </h2>
         </div>
     </div>
   )
