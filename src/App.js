@@ -33,6 +33,8 @@ function App() {
     setSelectedTask(null)
   }
 
+  const [showCompleted, setShowCompleted] = useState(false)
+
   const [tasks, setTasks] = useState({})
 
   useEffect(() => {
@@ -51,6 +53,13 @@ function App() {
     
     fetchTasks()
   }, [])
+
+  /**
+   * Show tasks by their status
+   */
+  const toggleShowCompleted = () => {
+    setShowCompleted(prevState => !prevState)
+  }
 
   /**
    * Render new tasks
@@ -91,7 +100,7 @@ function App() {
 
   return (
     <div className="main-container">
-      <Header />
+      <Header showCompleted={showCompleted} toggleShowCompleted={toggleShowCompleted} />
       <DaysContainer>
         {weekdays.map(day => (
           <TaskBlock 
@@ -99,8 +108,9 @@ function App() {
             dayName={day}
             border={day === 'Sunday' ? 'border-none' : ''}
             position={day !== 'Monday' ? 'pl-0 pr-8' : ''}
-            tasks={tasks[day] || []}
+            tasks={tasks[day] ? tasks[day].filter(task => task.tas_status === showCompleted) : []}
             onTaskClick={openEditModal}
+            
           >
             <AddButton onClick={() => openModal(day)} />
           </TaskBlock>
